@@ -1,8 +1,5 @@
-import Sigrid from '@/app/(sigrid)/sigrid';
-
+import Sigrid from "@/app/(sigrid)/sigrid";
 
 export default function Home() {
-  return <>
-    <Sigrid />
-  </>
+  return <Sigrid />;
 }
