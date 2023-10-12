@@ -29,9 +29,10 @@ export default function Sigrid() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Sigrid</PageHeaderHeading>
+        <PageHeaderHeading>Sigridpunk</PageHeaderHeading>
         <PageHeaderDescription>
-          Sigrid är en hjälpköwebbapp.
+          <Link href="http://bjornix.cs.lth.se:8091/sigrid">Sigrid</Link> är en
+          hjälpköwebbapp.
           <br />
           Karta över{" "}
           <Link href="https://fileadmin.cs.lth.se/cs/Bilder/Salar/Datorsalar_E-huset.pdf">
