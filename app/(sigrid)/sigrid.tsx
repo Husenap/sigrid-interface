@@ -4,7 +4,6 @@ import { exit, help, login, ready, work } from '@/app/(sigrid)/actions';
 import Login from '@/app/(sigrid)/login';
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from '@/components/layouts/page-header';
 import { Button } from '@/components/ui/button';
-import { TypographyH1, TypographyLead } from '@/components/ui/typography';
 import { useStudentAuth } from '@/hooks/use-student-auth';
 import Link from 'next/link';
 
