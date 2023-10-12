@@ -1,0 +1,3 @@
+[submodule "sigrid"]
+	path = sigrid
+	url = git@github.com:bjornregnell/sigrid.git
