@@ -1,13 +1,14 @@
 "use client";
 
-import { exit, help, login, ready, work } from "@/app/(sigrid)/actions";
+import { exit, login } from "@/app/(sigrid)/actions";
 import Login from "@/app/(sigrid)/login";
+import Room from "@/app/(sigrid)/room";
 import {
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/layouts/page-header";
-import { Button } from "@/components/ui/button";
+import { site } from "@/config/site";
 import { useStudentAuth } from "@/hooks/use-student-auth";
 import Link from "next/link";
 
@@ -29,7 +30,7 @@ export default function Sigrid() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Sigridpunk</PageHeaderHeading>
+        <PageHeaderHeading>{site.name}</PageHeaderHeading>
         <PageHeaderDescription>
           <Link href="http://bjornix.cs.lth.se:8091/sigrid">Sigrid</Link> är en
           hjälpköwebbapp.
@@ -43,23 +44,9 @@ export default function Sigrid() {
         </PageHeaderDescription>
       </PageHeader>
       Hej student!
-      <div className="flex gap-2 pt-8">
+      <div className="flex flex-col gap-2 pt-8">
         {auth ? (
-          <>
-            <Button variant="default" onClick={() => work(auth)}>
-              Work
-            </Button>
-            <Button variant="default" onClick={() => help(auth)}>
-              Help
-            </Button>
-            <Button variant="default" onClick={() => ready(auth)}>
-              Ready
-            </Button>
-            <Button variant="destructive" onClick={() => handleExit()}>
-              Exit
-            </Button>
-            <pre>{JSON.stringify(auth, null, 2)}</pre>
-          </>
+          <Room auth={auth} handleExit={handleExit} />
         ) : (
           <Login handleLogin={handleLogin} />
         )}

@@ -1,22 +1,23 @@
 import Providers from "@/components/providers/providers";
-import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import "./globals.css";
+import { site } from "@/config/site";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sigridpunk",
-  description: "Take your labbhandledning to the next level! 🚀",
+  title: site.name,
+  description: site.description,
+  metadataBase: new URL(site.baseurl),
   openGraph: {
-    title: "Sigridpunk",
-    description: "Take your labbhandledning to the next level! 🚀",
-    siteName: "Sigridpunk",
-    url: "https://sigrid-interface.vercel.app",
+    siteName: site.name,
+    title: site.name,
+    description: site.description,
+    url: site.baseurl,
     images: {
-      url: "https://sigrid-interface.vercel.app/logo.jpg",
+      url: `${site.baseurl}logo.jpg`,
       width: 1024,
       height: 1024,
       alt: "The AI are taking over!",
@@ -41,6 +42,7 @@ export default function RootLayout({
                 src="/logo.png"
                 width={1024}
                 height={1024}
+                className="max-h-screen w-auto opacity-50"
                 alt="Sigridpunk is taking over"
               />
             </div>
