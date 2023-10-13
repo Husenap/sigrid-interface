@@ -17,8 +17,10 @@ export async function apiCall(path: Array<string>, params: any) {
   return res;
 }
 
+export type StudentState = "work" | "help" | "ready";
 export type StudentAuthState = {
   userid: string;
   course: string;
   room: string;
+  state: StudentState;
 };

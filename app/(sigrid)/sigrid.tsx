@@ -8,12 +8,12 @@ import {
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/layouts/page-header";
+import { useStudentAuth } from "@/components/providers/auth-provider";
 import { site } from "@/config/site";
-import { useStudentAuth } from "@/hooks/use-student-auth";
 import Link from "next/link";
 
 export default function Sigrid() {
-  const { auth, setAuth } = useStudentAuth();
+  const { isLoading, auth, setAuth } = useStudentAuth();
 
   const handleLogin = async (name: string, course: string, room: string) => {
     const newAuth = await login(name, course, room);
@@ -45,11 +45,12 @@ export default function Sigrid() {
       </PageHeader>
       Hej student!
       <div className="flex flex-col gap-2 pt-8">
-        {auth ? (
-          <Room auth={auth} handleExit={handleExit} />
-        ) : (
-          <Login handleLogin={handleLogin} />
-        )}
+        {!isLoading &&
+          (auth ? (
+            <Room handleExit={handleExit} />
+          ) : (
+            <Login handleLogin={handleLogin} />
+          ))}
       </div>
     </>
   );
