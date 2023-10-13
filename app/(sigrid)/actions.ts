@@ -27,9 +27,6 @@ export async function update(auth: StudentAuthState, state: string) {
     ...auth,
     state: state,
   });
-
-  const page = await res.text();
-  console.log(page);
 }
 
 export async function work(auth: StudentAuthState) {
