@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 export default function parse(text: string) {
   console.log("===============================================");
   text = text.substring(text.indexOf("users:"));
@@ -10,7 +12,6 @@ export default function parse(text: string) {
 
   const users = parseUsers(usersText);
   const rooms = parseRooms(roomsText);
-  console.log(JSON.stringify({ users, rooms }, null, 2));
   return { users, rooms };
 }
 
@@ -76,9 +77,12 @@ function splitNames(text: string) {
   return text.split(",");
 }
 
-function parseDate(text: string) {
-  const [YYYY, MM, DD, hh, mm, ss] = text.split(",");
-  return new Date(+YYYY, +MM - 1, +DD, +hh, +mm, +ss);
+function getTimeDiff(text: string) {
+  const now = DateTime.now().setZone("Europe/Stockholm");
+  const then = DateTime.fromFormat(text, "yyyy,M,d,h,m,s", {
+    zone: "Europe/Stockholm",
+  });
+  return Math.floor(now.diff(then, "minutes").minutes);
 }
 
 function splitQueue(text: string) {
@@ -87,9 +91,7 @@ function splitQueue(text: string) {
   for (const match of text.matchAll(/\(([^,]*),Date\((.*?)\)/g)) {
     const data = {
       userid: match[1],
-      minutesInQueue: Math.floor(
-        (Date.now() - parseDate(match[2]).getTime()) / 60000
-      ),
+      minutesInQueue: getTimeDiff(match[2]),
     };
     result.push(data);
   }
