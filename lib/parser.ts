@@ -1,7 +1,6 @@
 import { DateTime } from "luxon";
 
 export default function parse(text: string) {
-  console.log("===============================================");
   text = text.substring(text.indexOf("users:"));
   text = text.replaceAll(/<\/?\w*>|\&[^;]*;|\s*/g, "").trim();
 
