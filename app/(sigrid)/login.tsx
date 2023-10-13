@@ -1,5 +1,6 @@
 "use client";
 
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -60,13 +61,14 @@ const formSchema = z.object({
   course: z.string().min(1, "Du måste ange en kurskod."),
   room: z.string().min(1, "Du måste välja ett rum."),
 });
+type FormSchema = z.infer<typeof formSchema>;
 
 export default function Login({
   handleLogin,
 }: {
   handleLogin: (name: string, course: string, room: string) => void;
 }) {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
@@ -75,15 +77,20 @@ export default function Login({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    handleLogin(values.name, values.course, values.room);
+  const { isSubmitting } = form.formState;
+
+  async function onSubmit(values: FormSchema) {
+    await handleLogin(values.name, values.course, values.room);
   }
 
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <Card className="w-96">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 w-full"
+        >
+          <Card className="max-w-sm">
             <CardHeader>
               <CardTitle>Logga in</CardTitle>
               <CardDescription>
@@ -158,7 +165,16 @@ export default function Login({
               />
             </CardContent>
             <CardFooter>
-              <Button>Logga in</Button>
+              {isSubmitting ? (
+                <Button disabled>
+                  <Icons.loader className="mr-2 h-4 w-4 animate-spin" />
+                  Loggar in
+                </Button>
+              ) : (
+                <Button>
+                  <Icons.login className="mr-2 h-4 w-4" /> Logga in
+                </Button>
+              )}
             </CardFooter>
           </Card>
         </form>
