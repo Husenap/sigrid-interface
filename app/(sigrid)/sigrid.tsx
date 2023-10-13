@@ -11,6 +11,7 @@ import {
 import { useStudentAuth } from "@/components/providers/auth-provider";
 import { site } from "@/config/site";
 import Link from "next/link";
+import Spline from "@splinetool/react-spline";
 
 export default function Sigrid() {
   const { isLoading, auth, setAuth } = useStudentAuth();
@@ -29,6 +30,12 @@ export default function Sigrid() {
 
   return (
     <>
+      <div className="hidden lg:flex absolute top-0 right-0 w-auto h-screen -z-10 items-center">
+        <Spline
+          className="max-h-screen"
+          scene="https://prod.spline.design/so6TvTcD8iYnVpmx/scene.splinecode"
+        />
+      </div>
       <PageHeader>
         <PageHeaderHeading>{site.name}</PageHeaderHeading>
         <PageHeaderDescription>

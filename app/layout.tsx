@@ -36,18 +36,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <main className="container relative">
-            <div className="absolute top-0 right-0 h-screen -z-10 flex items-center">
-              <Image
-                src="/logo.png"
-                width={1024}
-                height={1024}
-                className="max-h-screen w-auto opacity-50"
-                alt="Sigridpunk is taking over"
-              />
-            </div>
-            {children}
-          </main>
+          <main className="container relative">{children}</main>
         </Providers>
       </body>
     </html>

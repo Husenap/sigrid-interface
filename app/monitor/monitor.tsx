@@ -33,7 +33,7 @@ export default function Monitor() {
     <div>
       <div
         ref={loaderRef}
-        className="absolute top-0 left-0 h-1 w-full animate-load bg-red-50"
+        className="fixed top-0 left-0 h-1 w-full animate-load bg-primary"
       ></div>
       <pre>{JSON.stringify(courses, null, 2)}</pre>
     </div>
