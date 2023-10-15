@@ -9,7 +9,7 @@ let cache: {
 } | null = null;
 
 export default async function getDatabase() {
-  if (cache && Date.now() - cache.date < 5000) {
+  if (cache && Date.now() - cache.date < 0) {
     console.log('Returning cached data');
     return cache.database;
   } else {
