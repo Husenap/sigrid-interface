@@ -2,7 +2,7 @@
 
 import { exit, login } from "@/app/(sigrid)/actions";
 import Login from "@/app/(sigrid)/login";
-import Room from "@/app/(sigrid)/room";
+import StudentInterface from "@/app/(sigrid)/student-interface";
 import {
   PageHeader,
   PageHeaderDescription,
@@ -54,7 +54,7 @@ export default function Sigrid() {
       <div className="flex flex-col gap-2 pt-8">
         {!isLoading &&
           (auth ? (
-            <Room handleExit={handleExit} />
+            <StudentInterface handleExit={handleExit} />
           ) : (
             <Login handleLogin={handleLogin} />
           ))}
