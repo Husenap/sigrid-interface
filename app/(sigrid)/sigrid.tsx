@@ -1,6 +1,6 @@
 'use client';
 
-import { exit, login } from '@/app/(sigrid)/actions';
+import { login } from '@/app/(sigrid)/actions';
 import Login from '@/app/(sigrid)/login';
 import StudentInterface from '@/app/(sigrid)/student-interface';
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from '@/components/layouts/page-header';
@@ -16,13 +16,6 @@ export default function Sigrid() {
     setAuth(newAuth);
   };
 
-  const handleExit = async () => {
-    if (auth) {
-      await exit(auth);
-      setAuth(null);
-    }
-  };
-
   return (
     <>
       <PageHeader>
@@ -36,9 +29,7 @@ export default function Sigrid() {
         </PageHeaderDescription>
       </PageHeader>
       Hej student!
-      <div className="pt-8">
-        {!isLoading && (auth ? <StudentInterface handleExit={handleExit} /> : <Login handleLogin={handleLogin} />)}
-      </div>
+      <div className="pt-8">{!isLoading && (auth ? <StudentInterface /> : <Login handleLogin={handleLogin} />)}</div>
     </>
   );
 }
