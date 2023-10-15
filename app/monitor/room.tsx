@@ -9,23 +9,25 @@ type RoomProps = {
 export default function Room({ room }: RoomProps) {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{room.room}</CardTitle>
-        <CardDescription>
-          {room.supervisors.length > 0 && <p>Handledare: {room.supervisors.join(', ')}</p>}
-          <p>Studenter: {room.students.length}</p>
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-row justify-between gap-2">
-        <div>
-          <TypographyH4 className="text-left">Hjälpkö: {room.helpQueue.length}</TypographyH4>
-          <Queue students={room.helpQueue} />
-        </div>
-        <div>
-          <TypographyH4 className="text-right">Redovkö: {room.approvalQueue.length}</TypographyH4>
-          <Queue students={room.approvalQueue} />
-        </div>
-      </CardContent>
+      <div className="x:m-0 -m-2">
+        <CardHeader>
+          <CardTitle>{room.room}</CardTitle>
+          <CardDescription>
+            <p>Handledare: {room.supervisors.join(', ')}</p>
+            <p>Studenter: {room.students.length}</p>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-row justify-between gap-2">
+          <div>
+            <TypographyH4>Hjälpkö: {room.helpQueue.length}</TypographyH4>
+            <Queue students={room.helpQueue} />
+          </div>
+          <div dir="rtl">
+            <TypographyH4>Redovkö: {room.approvalQueue.length}</TypographyH4>
+            <Queue students={room.approvalQueue} />
+          </div>
+        </CardContent>
+      </div>
     </Card>
   );
 }
@@ -43,7 +45,7 @@ function Queue({ students }: QueueProps) {
             <Badge variant="outline" className="relative">
               {minutesInQueue}
               {minutesInQueue > 10 && (
-                <div className="absolute -right-2 -top-1">
+                <div className="absolute -right-1 -top-1">
                   <span className="relative flex h-3 w-3">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
                     <span className="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>

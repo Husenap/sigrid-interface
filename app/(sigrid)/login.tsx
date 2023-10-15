@@ -1,79 +1,54 @@
-"use client";
+'use client';
 
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 
 const KnownRooms = [
-  "Pluto",
-  "Neptunus",
-  "Uranus",
-  "Saturnus",
-  "Jupiter",
-  "Mars",
-  "Venus",
-  "Elg",
-  "Elgkalv",
-  "Hacke",
-  "Panter",
-  "Ravel",
-  "Val",
-  "Falk",
-  "Varg",
-  "Lo",
-  "Alfa",
-  "Beta",
-  "Gamma",
-  "Idét",
-  "Distans",
+  'Pluto',
+  'Neptunus',
+  'Uranus',
+  'Saturnus',
+  'Jupiter',
+  'Mars',
+  'Venus',
+  'Elg',
+  'Elgkalv',
+  'Hacke',
+  'Panter',
+  'Ravel',
+  'Val',
+  'Falk',
+  'Varg',
+  'Lo',
+  'Alfa',
+  'Beta',
+  'Gamma',
+  'Idét',
+  'Distans',
 ].sort();
 
 const formSchema = z.object({
-  name: z.string().min(1, "Du måste ange ett förnamn."),
-  course: z.string().min(1, "Du måste ange en kurskod."),
-  room: z.string().min(1, "Du måste välja ett rum."),
+  name: z.string().min(1, 'Du måste ange ett förnamn.').max(15, 'Ditt namn får max vara 15 bokstäver.'),
+  course: z.string().min(1, 'Du måste ange en kurskod.').max(8, 'Kurskoden får max vara 8 bokstäver.'),
+  room: z.string().min(1, 'Du måste välja ett rum.'),
 });
 type FormSchema = z.infer<typeof formSchema>;
 
-export default function Login({
-  handleLogin,
-}: {
-  handleLogin: (name: string, course: string, room: string) => void;
-}) {
+export default function Login({ handleLogin }: { handleLogin: (name: string, course: string, room: string) => void }) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      course: "pgk",
-      room: "",
+      name: '',
+      course: 'pgk',
+      room: '',
     },
   });
 
@@ -86,16 +61,11 @@ export default function Login({
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
           <Card className="max-w-sm">
             <CardHeader>
               <CardTitle>Logga in</CardTitle>
-              <CardDescription>
-                Logga in i ett klassrum med din kurskod.
-              </CardDescription>
+              <CardDescription>Logga in i ett klassrum med din kurskod.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
@@ -107,9 +77,7 @@ export default function Login({
                     <FormControl>
                       <Input placeholder="kim" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Detta namnet ropas upp av handledarna.
-                    </FormDescription>
+                    <FormDescription>Detta namnet ropas upp av handledarna.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -123,9 +91,7 @@ export default function Login({
                     <FormControl>
                       <Input placeholder="pgk, dod..." {...field} />
                     </FormControl>
-                    <FormDescription>
-                      Din kurskod, t.ex. pgk, dod...
-                    </FormDescription>
+                    <FormDescription>Din kurskod, t.ex. pgk, dod...</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -137,10 +103,7 @@ export default function Login({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Välj rum" />
@@ -156,9 +119,7 @@ export default function Login({
                         </ScrollArea>
                       </SelectContent>
                     </Select>
-                    <FormDescription>
-                      Välj rummet som du befinner dig i.
-                    </FormDescription>
+                    <FormDescription>Välj rummet som du befinner dig i.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
