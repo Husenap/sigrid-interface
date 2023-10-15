@@ -1,6 +1,28 @@
 import { DateTime } from "luxon";
 
-export default function parse(text: string) {
+export type QueuedStudent = {
+  userid: string;
+  minutesInQueue: number;
+};
+export type Room = {
+  course: string;
+  room: string;
+  supervisors: Array<string>;
+  students: Array<string>;
+  helpQueue: Array<QueuedStudent>;
+  approvalQueue: Array<QueuedStudent>;
+};
+export type Course = {
+  name: string;
+  rooms: Array<Room>;
+};
+export type Courses = Array<Course>;
+export type Database = {
+  users: Array<string>;
+  rooms: Array<Room>;
+};
+
+export async function parse(text: string) {
   text = text.substring(text.indexOf("users:"));
   text = text.replaceAll(/<\/?\w*>|\&[^;]*;|\s*/g, "").trim();
 
@@ -11,7 +33,23 @@ export default function parse(text: string) {
 
   const users = parseUsers(usersText);
   const rooms = parseRooms(roomsText);
-  return { users, rooms };
+  return { users, rooms } as Database;
+}
+
+export function databaseToCourses(database: Database) {
+  const courses: Courses = [];
+  for (const room of database.rooms) {
+    const course = courses.find(({ name }) => name === room.course);
+    if (course) {
+      course.rooms.push(room);
+    } else {
+      courses.push({
+        name: room.course,
+        rooms: [room],
+      });
+    }
+  }
+  return courses;
 }
 
 function parseUsers(text: string) {
@@ -19,18 +57,6 @@ function parseUsers(text: string) {
   return match ? splitNames(match[1]) : [];
 }
 
-type QueuedUser = {
-  userid: string;
-  minutesInQueue: number;
-};
-export type Room = {
-  course: string;
-  room: string;
-  supervisors: Array<string>;
-  students: Array<string>;
-  helpQueue: Array<QueuedUser>;
-  approvalQueue: Array<QueuedUser>;
-};
 function parseRooms(text: string): Array<Room> {
   const match = text.match(/[^(]*\((.*)\)/);
   const result: Array<Room> = [];

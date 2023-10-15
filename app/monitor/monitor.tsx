@@ -1,10 +1,9 @@
 "use client";
 
 import getDatabase from "@/app/monitor/actions";
-import { Room } from "@/lib/parser";
+import CourseList from "@/app/monitor/course-list";
+import { Courses, databaseToCourses } from "@/lib/parser";
 import { useEffect, useRef, useState } from "react";
-
-type Courses = Record<string, Record<string, Array<Room>>>;
 
 export default function Monitor() {
   const [courses, setCourses] = useState<Courses | null>(null);
@@ -12,13 +11,8 @@ export default function Monitor() {
 
   useEffect(() => {
     const updateData = async () => {
-      getDatabase().then((database) => {
-        const newCourses: Courses = {};
-        database.rooms.forEach((room) => {
-          ((newCourses[room.course] ??= {})[room.room] ??= []).push(room);
-        });
-        setCourses(newCourses);
-      });
+      const database = await getDatabase();
+      setCourses(databaseToCourses(database));
     };
     updateData();
 
@@ -34,8 +28,8 @@ export default function Monitor() {
       <div
         ref={loaderRef}
         className="fixed top-0 left-0 h-1 w-full animate-load bg-primary"
-      ></div>
-      <pre>{JSON.stringify(courses, null, 2)}</pre>
+      />
+      {courses && <CourseList courses={courses}></CourseList>}
     </div>
   );
 }
