@@ -65,7 +65,7 @@ export default function Login({ handleLogin }: { handleLogin: (name: string, cou
           <Card className="max-w-sm">
             <CardHeader>
               <CardTitle>Logga in</CardTitle>
-              <CardDescription>Logga in i ett klassrum med din kurskod.</CardDescription>
+              <CardDescription>Logga in i ett klassrum med rätt kurskod.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
@@ -77,7 +77,7 @@ export default function Login({ handleLogin }: { handleLogin: (name: string, cou
                     <FormControl>
                       <Input placeholder="kim" {...field} />
                     </FormControl>
-                    <FormDescription>Detta namnet ropas upp av handledarna.</FormDescription>
+                    <FormDescription>Detta är ditt visningsnamn.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -102,7 +102,7 @@ export default function Login({ handleLogin }: { handleLogin: (name: string, cou
                 name="room"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Rum</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
