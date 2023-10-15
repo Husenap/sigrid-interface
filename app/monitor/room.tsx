@@ -39,20 +39,17 @@ function Queue({ students }: QueueProps) {
   return (
     <div className="flex flex-col pt-2">
       {students.map(({ userid, minutesInQueue }, index) => (
-        <div key={userid} className="flex flex-none items-center gap-1">
+        <div key={userid} className="flex flex-none items-center gap-2">
           {userid}
           {index === 0 && minutesInQueue > 0 && (
-            <Badge variant="outline" className="relative">
-              {minutesInQueue}
+            <span className="relative flex">
               {minutesInQueue > 10 && (
-                <div className="absolute -right-1 -top-1">
-                  <span className="relative flex h-3 w-3">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                    <span className="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>
-                  </span>
-                </div>
+                <span className="absolute h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
               )}
-            </Badge>
+              <Badge variant="default" className="relative">
+                {minutesInQueue}
+              </Badge>
+            </span>
           )}
         </div>
       ))}
