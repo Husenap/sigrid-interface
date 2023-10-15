@@ -14,13 +14,19 @@ import {
 } from "@/components/ui/card";
 import { StudentState } from "@/lib/api";
 
-export default function Room({ handleExit }: { handleExit: () => void }) {
+type Props = {
+  handleExit: () => void;
+};
+export default function StudentInterface({ handleExit }: Props) {
   const { auth, setAuth } = useStudentAuth();
 
   const doUpdate = async (state: StudentState) => {
     if (!auth) return;
     await update(auth, state);
-    setAuth((prev) => prev && { ...prev, state });
+    setAuth((prev) => {
+      if (!prev) return;
+      prev.state = state;
+    });
   };
 
   return (

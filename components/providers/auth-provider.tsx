@@ -1,6 +1,8 @@
 "use client";
 
+import { Updater, useImmer } from "use-immer";
 import { StudentAuthState } from "@/lib/api";
+import { addYears } from "@/lib/date";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import {
   Dispatch,
@@ -17,7 +19,7 @@ const CookieKey = "sigrid-student-auth";
 type StudentAuthContextType = {
   isLoading: boolean;
   auth: StudentAuthState | null;
-  setAuth: Dispatch<SetStateAction<StudentAuthState | null>>;
+  setAuth: Updater<StudentAuthState | null>;
 };
 const StudentAuthContext = createContext<StudentAuthContextType>({
   isLoading: true,
@@ -31,7 +33,7 @@ export function useStudentAuth() {
 
 export function StudentAuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [auth, setAuth] = useState<StudentAuthState | null>(null);
+  const [auth, setAuth] = useImmer<StudentAuthState | null>(null);
 
   useEffect(() => {
     const cookie = getCookie(CookieKey);
@@ -43,7 +45,9 @@ export function StudentAuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (auth) {
-      setCookie(CookieKey, JSON.stringify(auth));
+      setCookie(CookieKey, JSON.stringify(auth), {
+        expires: addYears(new Date(), 1),
+      });
     } else {
       deleteCookie(CookieKey);
     }
