@@ -1,8 +1,10 @@
+import { NextRequest, NextResponse } from 'next/server';
+
 export const preferredRegion = 'arn1';
 
 const BASE_URL = process.env.SIGRID_URL || '';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   const { path, params } = await request.json();
 
   const apiUrl = [BASE_URL, ...path].join('/');
@@ -20,5 +22,5 @@ export async function POST(request: Request) {
 
   const page = await res.text();
 
-  return new Response(page);
+  return new NextResponse(page);
 }
