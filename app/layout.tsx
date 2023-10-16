@@ -1,4 +1,5 @@
 import Providers from '@/components/providers/providers';
+import { Toaster } from '@/components/ui/toaster';
 import { site } from '@/config/site';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className}>
         <Providers>
           <main className="container relative px-4 lg:px-8">{children}</main>
+          <Toaster />
         </Providers>
       </body>
     </html>

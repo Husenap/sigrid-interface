@@ -1,11 +1,16 @@
 import {
   ChevronRightSquare,
   Hand,
+  ListMinus,
   Loader2,
   LogIn,
   LogOut,
+  Merge,
   Presentation,
-} from "lucide-react";
+  Trash2,
+  UserX2,
+  XSquare,
+} from 'lucide-react';
 
 export const Icons = {
   loader: Loader2,
@@ -14,4 +19,9 @@ export const Icons = {
   help: Hand,
   ready: Presentation,
   logout: LogOut,
+  popQueue: ListMinus,
+  clearQueue: XSquare,
+  purge: Trash2,
+  mergeRoom: Merge,
+  removeUser: UserX2,
 };

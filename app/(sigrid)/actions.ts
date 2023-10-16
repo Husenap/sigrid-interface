@@ -1,4 +1,4 @@
-import { apiCall } from '@/lib/api';
+import { checkedApiCall } from '@/lib/utils';
 
 export type StudentState = 'work' | 'help' | 'ready' | 'exit';
 export type StudentAuthState = {
@@ -9,7 +9,7 @@ export type StudentAuthState = {
 };
 
 export async function login(name: string, course: string, room: string) {
-  const page = await apiCall(['sigrid', 'login'], {
+  const page = await checkedApiCall(['sigrid', 'login'], {
     name,
     course,
     room,
@@ -26,8 +26,8 @@ export async function login(name: string, course: string, room: string) {
 }
 
 export async function update(auth: StudentAuthState, state: StudentState) {
-  await apiCall(['sigrid', 'update'], {
+  await checkedApiCall(['sigrid', 'update'], {
     ...auth,
-    state: state,
+    state,
   });
 }
