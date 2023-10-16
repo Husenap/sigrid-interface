@@ -2,7 +2,7 @@
 
 import { StudentState, exit, update } from '@/app/(sigrid)/actions';
 import { Icons } from '@/components/icons';
-import { useStudentAuth } from '@/components/providers/auth-provider';
+import { useStudentAuth } from '@/components/providers/student-auth-provider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 

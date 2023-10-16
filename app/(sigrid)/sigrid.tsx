@@ -4,7 +4,7 @@ import { login } from '@/app/(sigrid)/actions';
 import Login from '@/app/(sigrid)/login';
 import StudentInterface from '@/app/(sigrid)/student-interface';
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from '@/components/layouts/page-header';
-import { useStudentAuth } from '@/components/providers/auth-provider';
+import { useStudentAuth } from '@/components/providers/student-auth-provider';
 import { site } from '@/config/site';
 import Link from 'next/link';
 
