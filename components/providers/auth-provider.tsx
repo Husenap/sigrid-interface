@@ -1,20 +1,12 @@
-"use client";
+'use client';
 
-import { Updater, useImmer } from "use-immer";
-import { StudentAuthState } from "@/lib/api";
-import { addYears } from "@/lib/date";
-import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { StudentAuthState } from '@/app/(sigrid)/actions';
+import { toMidnight } from '@/lib/date';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { Updater, useImmer } from 'use-immer';
 
-const CookieKey = "sigrid-student-auth";
+const CookieKey = 'sigrid-student-auth';
 
 type StudentAuthContextType = {
   isLoading: boolean;
@@ -46,16 +38,12 @@ export function StudentAuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (auth) {
       setCookie(CookieKey, JSON.stringify(auth), {
-        expires: addYears(new Date(), 1),
+        expires: toMidnight(new Date()),
       });
     } else {
       deleteCookie(CookieKey);
     }
   }, [auth]);
 
-  return (
-    <StudentAuthContext.Provider value={{ isLoading, auth, setAuth }}>
-      {children}
-    </StudentAuthContext.Provider>
-  );
+  return <StudentAuthContext.Provider value={{ isLoading, auth, setAuth }}>{children}</StudentAuthContext.Provider>;
 }
