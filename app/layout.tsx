@@ -26,7 +26,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const runtime = 'edge';
 export const preferredRegion = 'arn1';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
