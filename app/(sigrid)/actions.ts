@@ -1,8 +1,6 @@
-'use server';
-
 import { apiCall } from '@/lib/api';
 
-export type StudentState = 'work' | 'help' | 'ready';
+export type StudentState = 'work' | 'help' | 'ready' | 'exit';
 export type StudentAuthState = {
   userid: string;
   course: string;
@@ -11,14 +9,13 @@ export type StudentAuthState = {
 };
 
 export async function login(name: string, course: string, room: string) {
-  const res = await apiCall(['sigrid', 'login'], {
+  const page = await apiCall(['sigrid', 'login'], {
     name,
     course,
     room,
     state: 'work',
   });
 
-  const page = await res.text();
   const matches = page.matchAll(/type="hidden" name="([^"]*)" value="([^"]*)"/g);
 
   const authState: Record<string, string> = {};
@@ -32,12 +29,5 @@ export async function update(auth: StudentAuthState, state: StudentState) {
   await apiCall(['sigrid', 'update'], {
     ...auth,
     state: state,
-  });
-}
-
-export async function exit(auth: StudentAuthState) {
-  await apiCall(['sigrid', 'update'], {
-    ...auth,
-    state: 'exit',
   });
 }

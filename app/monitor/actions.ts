@@ -1,26 +1,9 @@
-'use server';
-
 import { apiCall } from '@/lib/api';
-import { Database, parse } from '@/lib/parser';
-
-let cache: {
-  database: Database;
-  date: number;
-} | null = null;
+import { parse } from '@/lib/parser';
 
 export default async function getDatabase() {
-  if (cache && Date.now() - cache.date < 9000) {
-    return cache.database;
-  }
-
-  const res = await apiCall(['sigrid', 'monitor'], {});
-  const page = await res.text();
+  const page = await apiCall(['sigrid', 'monitor'], {});
   const database = await parse(page);
-
-  cache = {
-    database,
-    date: Date.now(),
-  };
 
   return database;
 }

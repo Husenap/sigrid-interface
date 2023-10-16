@@ -1,6 +1,6 @@
 'use client';
 
-import { StudentState, exit, update } from '@/app/(sigrid)/actions';
+import { StudentState, update } from '@/app/(sigrid)/actions';
 import { Icons } from '@/components/icons';
 import { useStudentAuth } from '@/components/providers/student-auth-provider';
 import { Button } from '@/components/ui/button';
@@ -20,7 +20,7 @@ export default function StudentInterface() {
 
   const handleExit = async () => {
     if (auth) {
-      await exit(auth);
+      await update(auth, 'exit');
       setAuth(null);
     }
   };

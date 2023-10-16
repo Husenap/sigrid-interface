@@ -1,3 +1,5 @@
+'use server';
+
 const BASE_URL = process.env.SIGRID_URL || '';
 
 export async function apiCall(path: Array<string>, params: any) {
@@ -14,5 +16,5 @@ export async function apiCall(path: Array<string>, params: any) {
     throw new Error(await res.text());
   }
 
-  return res;
+  return await res.text();
 }
