@@ -59,7 +59,9 @@ export default function StudentInterface() {
   return (
     <Card className="max-w-sm">
       <CardHeader>
-        <CardTitle>{auth?.room}</CardTitle>
+        <CardTitle>
+          <b>{auth?.userid}</b> i <b>{auth?.room}</b>
+        </CardTitle>
         <CardDescription>Uppdatera ditt tillstånd så kommer det en handledare snart 🤖</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">

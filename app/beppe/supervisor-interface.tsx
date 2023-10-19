@@ -15,7 +15,10 @@ export default function SupervisorInterface() {
   const handleExit = async (state: SupervisorState) => {
     if (auth) {
       try {
-        await update(auth, state);
+        await update(auth, state, {
+          name: '',
+          other: '',
+        });
       } catch (e) {
         toast({
           variant: 'destructive',
