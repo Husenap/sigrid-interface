@@ -1,11 +1,7 @@
-import RoomList from "@/app/monitor/room-list";
-import { Courses } from "@/lib/parser";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import RoomList from '@/app/monitor/room-list';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { TypographyLarge, TypographyLead } from '@/components/ui/typography';
+import { Courses } from '@/lib/parser';
 
 type Props = {
   courses: Courses;
@@ -13,20 +9,22 @@ type Props = {
 export default function CourseList({ courses }: Props) {
   return (
     <div>
-      <Accordion type="single" collapsible>
-        {courses.map((course) => (
-          <AccordionItem key={course.name} value={course.name}>
-            <AccordionTrigger>
-              {course.name} - {course.rooms.length} rum
-            </AccordionTrigger>
-            <AccordionContent>
-              <RoomList course={course} />
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-
-      <pre className="p-8">{JSON.stringify(courses, null, 2)}</pre>
+      {courses.length > 0 ? (
+        <Accordion type="single" defaultValue="PGK">
+          {courses.map((course) => (
+            <AccordionItem key={course.name} value={course.name}>
+              <AccordionTrigger>
+                {course.name} - {course.rooms.length} rum
+              </AccordionTrigger>
+              <AccordionContent>
+                <RoomList course={course} />
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      ) : (
+        <TypographyLarge>Alla salar är tomma just nu...</TypographyLarge>
+      )}
     </div>
   );
 }

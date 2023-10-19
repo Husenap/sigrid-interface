@@ -1,5 +1,6 @@
 import MainNav from '@/components/layouts/main-nav';
 import MobileNav from '@/components/layouts/mobile-nav';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default async function SiteHeader() {
   return (
@@ -8,8 +9,10 @@ export default async function SiteHeader() {
         <MainNav />
         <MobileNav />
 
-        <div className="flex flex-1 items-center justify-end ">
-          <nav className="flex items-center gap-2"></nav>
+        <div className="flex flex-1 items-center justify-end">
+          <nav className="flex items-center gap-2">
+            <ThemeToggle />
+          </nav>
         </div>
       </div>
     </header>

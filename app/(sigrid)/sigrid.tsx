@@ -5,29 +5,31 @@ import Login from '@/app/(sigrid)/login';
 import StudentInterface from '@/app/(sigrid)/student-interface';
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from '@/components/layouts/page-header';
 import { useStudentAuth } from '@/components/providers/student-auth-provider';
-import { site } from '@/config/site';
-import Link from 'next/link';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function Sigrid() {
   const { isLoading, auth, setAuth } = useStudentAuth();
+  const { toast } = useToast();
 
   const handleLogin = async (name: string, course: string, room: string) => {
-    setAuth(await login(name, course, room));
+    try {
+      setAuth(await login(name, course, room));
+    } catch {
+      toast({
+        variant: 'destructive',
+        title: 'Misslyckades med att logga in! 🥺',
+      });
+    }
   };
 
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>{site.name}</PageHeaderHeading>
+        <PageHeaderHeading>Hej Student!</PageHeaderHeading>
         <PageHeaderDescription>
-          <Link href="http://bjornix.cs.lth.se:8091/sigrid">Sigrid</Link> är en hjälpköwebbapp.
-          <br />
-          Karta över{' '}
-          <Link href="https://fileadmin.cs.lth.se/cs/Bilder/Salar/Datorsalar_E-huset.pdf">E-husets datorrum</Link>.
-          Kolla <Link href="https://github.com/bjornregnell/sigrid/">koden</Link>.
+          Här kan du logga in som student för att hoppa in i hjälpkön eller redovisningskön.
         </PageHeaderDescription>
       </PageHeader>
-      Hej student!
       <div className="pt-8">{!isLoading && (auth ? <StudentInterface /> : <Login handleLogin={handleLogin} />)}</div>
     </>
   );
