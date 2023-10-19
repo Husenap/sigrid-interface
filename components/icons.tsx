@@ -1,10 +1,12 @@
 import {
   ChevronRightSquare,
+  Github,
   Hand,
   ListMinus,
   Loader2,
   LogIn,
   LogOut,
+  Menu,
   Merge,
   Presentation,
   Trash2,
@@ -24,4 +26,6 @@ export const Icons = {
   purge: Trash2,
   mergeRoom: Merge,
   removeUser: UserX2,
+  menu: Menu,
+  gitHub: Github,
 };

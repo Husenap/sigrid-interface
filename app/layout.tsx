@@ -4,6 +4,8 @@ import { site } from '@/config/site';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import SiteHeader from '@/components/layouts/site-header';
+import SiteFooter from '@/components/layouts/site-footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,7 +36,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <main className="container relative px-4 lg:px-8">{children}</main>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <div className="flex flex-1 border-b pb-12">
+              <main className="container relative px-4 lg:px-8">{children}</main>
+            </div>
+            <SiteFooter />
+          </div>
           <Toaster />
         </Providers>
       </body>
