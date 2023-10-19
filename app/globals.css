@@ -72,3 +72,7 @@
 .animate-load {
   animation: load 10s linear infinite;
 }
+
+.text-no-wrap {
+  text-wrap: nowrap;
+}
