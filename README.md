@@ -4,7 +4,16 @@
 
 ### Getting Started
 
+When developing locally you will work against a local sigrid server and not the public server.
+The code for sigrid is included here as a submodule which will affect how you clone the repo.
+
 #### Cloning
+
+```
+git clone --recurse-submodules git@github.com:Husenap/sigrid-interface.git
+```
+
+or
 
 ```
 git clone git@github.com:Husenap/sigrid-interface.git
@@ -19,6 +28,8 @@ sbt run
 ```
 
 #### Starting local sigridpunk server
+
+The project uses pnpm, see [instructions for how to install pnpm using npm](https://pnpm.io/installation#using-npm).
 
 ```
 pnpm i
